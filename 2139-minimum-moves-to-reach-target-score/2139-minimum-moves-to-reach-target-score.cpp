@@ -1,21 +1,13 @@
 class Solution {
 public:
-    int minMoves(int t, int m) {int c=0;int s=0;
-        if(m==0)                 
-        return t-1;
-          else
-          {
-              while(m>0&&t>0){
-                 if(t%2==0){
-                c++;
-                m--;
-                t = t/2;
-            }
-            else{
-                c++;
-                t--;
-            }
-              } }
-              return c+t-1;
+    int minMoves(int target, int k) {
+        int res = 0;
+        while (target > 1 && k > 0) {   
+            res += 1 + target % 2;
+            k--;
+            target >>= 1;
+        }
+        return target - 1 + res;
+    
     }
 };
