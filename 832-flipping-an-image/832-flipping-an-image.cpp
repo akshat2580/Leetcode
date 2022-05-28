@@ -11,10 +11,7 @@ public:
         
         for(int i=0;i<v.size();i++){
             for(int j=0;j<v.size();j++){
-                if(v[i][j]==1)
-                    v[i][j]=0;
-                else
-                   v[i][j]=1;
+                v[i][j]^=1;
             }
         }
         return v;
