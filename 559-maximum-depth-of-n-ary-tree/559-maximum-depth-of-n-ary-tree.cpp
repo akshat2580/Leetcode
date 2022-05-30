@@ -29,6 +29,6 @@ public:
          l=max(l,r);
     }
       
-       return 1+max(l,r); 
+       return 1+l; 
     }
 };
