@@ -21,14 +21,17 @@ public:
 class Solution {
 public:
     int maxDepth(Node* root) {
-         if (root == NULL) return 0;
-        vector<Node*>v=root->children;int r=0,l=0;
-    for(int i=0;i<v.size();i++)
-    {
-        r=maxDepth(v[i]);
-         l=max(l,r);
-    }
-      
-       return 1+l; 
+        if (root == nullptr) return 0;
+        queue<Node*> q; q.push(root);
+        int depth = 0;
+        while (!q.empty()) {
+            depth += 1;
+            int breadth = q.size();
+            for (int _ = 0; _ < breadth; ++_) {
+                auto node = q.front(); q.pop();
+                for (auto child : node->children) if (child) q.push(child);
+            }
+        }
+        return depth;
     }
 };
