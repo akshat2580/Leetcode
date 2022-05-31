@@ -1,15 +1,16 @@
 class Solution {
 public:
     bool hasAllCodes(string s, int k) {
-        int d = 0;
-        unordered_set<int> hset;
-        for (int i = 0; i < s.length(); i++) {
-            d = (d << 1) | (s[i] - '0');
-            if (i >= k - 1) {
-                hset.insert(d);
-                d -= (s[i - (k - 1)] - '0') << (k - 1);
-            }
+        if(s.size()<k)return false;
+      
+        set<string>t;
+        for(int i=0;i<=s.size()-k;i++){string r="";
+          for(int j=i;j<i+k;j++){
+                    r+=s[j];             
         }
-        return hset.size() == (1 << k);
+                                      t.insert(r);    
+                                     }
+        return (t.size()==pow(2,k));
+           
     }
 };
