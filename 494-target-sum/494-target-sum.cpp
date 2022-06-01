@@ -6,7 +6,7 @@ class Solution {
         if(s.size()==1)return abs(s[0])==abs(t);
         
                  for(auto i:s)l+=i; 
-        t=abs(t);
+       
               int k=(l+t)/2;
         if((l+t)%2||abs(l)<abs(t))return 0;
         int dp[n+1][k+1];
