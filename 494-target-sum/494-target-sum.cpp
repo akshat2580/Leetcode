@@ -10,14 +10,12 @@ class Solution {
               int k=(l+t)/2;
         if((l+t)%2||abs(l)<abs(t))return 0;
         int dp[n+1][k+1];
-          for(int i=0;i<=n;i++){
+        for(int i=0;i<=n;i++)dp[i][0]=1;
+        for(int j=1;j<=k;j++)dp[0][j]=0;
+          for(int i=1;i<=n;i++){
               for(int j=0;j<=k;j++){
-                  if(i==0)dp[i][j]=0;
-                  else if(j==0) dp[i][j]=1;
-              }}
-        dp[0][0]=1;
-               for(int i=1;i<=n;i++){
-              for(int j=0;j<=k;j++){
+             
+              
                    if(s[i-1]<=j)
                   {
                       dp[i][j]=dp[i-1][j]+dp[i-1][j-s[i-1]];
