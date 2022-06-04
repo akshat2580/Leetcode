@@ -1,26 +1,35 @@
 class Solution {
 public:
-    int numberOfArithmeticSlices(vector<int>& n) {
-        int p=n.size();int s=0;int k=1;int t=0;
-        if(p<3)return 0;
-      
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        if(nums.size() < 3)
+            return 0;
         
+        int cnt = 0, diff = 0 , ind = 0;
+        int prev_diff = nums[1] - nums[0];
         
-         int a[p-1];
-            for(int i=0;i<p-1;i++)
-                a[i]=n[i]-n[i+1];
-            long long count =1,sum=0;
-        for(int j=1;j<p-1;j++){
-            if(a[j]==a[j-1]) count++;
-            else {
-                sum+=(count*(count-1)/2);
-                count=1;
+        for(int i = 1; i<nums.size()-1 ; ++i)
+        {
+            // curr difference
+            int diff = nums[i+1] - nums[i];
+            
+            // if we find same diff of consecutive elements
+            // increase count
+            if(diff ==  prev_diff)
+                ++ind;
+            
+            else
+            {
+                // update prev diff with curr diff
+                // as we don't find consecutive elements with same diff
+                prev_diff = diff;
+                ind = 0;  // make ind to 0
             }
+            
+            // add cosecutive arithmetic sequence cnt
+                cnt += ind;
         }
-               sum+=(count*(count-1)/2);
-      
-              
         
-             return sum; 
+       
+        return cnt;
     }
 };
