@@ -17,7 +17,7 @@ public:
             v.push_back(s);
             return;
         }
-        for(int i=0;i<s.size();++i)
+        for(int i=0;i<s.size();i++)
             if(c(s,n,i)){
                 s[n][i]='Q';
                 d(s,n+1);
