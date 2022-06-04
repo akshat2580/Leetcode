@@ -1,36 +1,27 @@
 class Solution {
 public:
-    vector<vector<string>>v;
-    bool c(vector<string>&s,int r,int m){
-        for(int i=r;i>=0;i--)
-            if(s[i][m]=='Q')return false;
-        for(int i=r,j=m;i>=0&&j>=0;--i,--j)
-            if(s[i][j]=='Q')return false;
-        for(int i=r,j=m;j<s.size()&&i>=0;--i,++j)
-            if(s[i][j]=='Q')return false;
-        return true;
-        
+    std::vector<std::vector<std::string> > solveNQueens(int n) {
+        std::vector<std::vector<std::string> > res;
+        std::vector<std::string> nQueens(n, std::string(n, '.'));
+        std::vector<int> flag_col(n, 1), flag_45(2 * n - 1, 1), flag_135(2 * n - 1, 1);
+        solveNQueens(res, nQueens, flag_col, flag_45, flag_135, 0, n);
+        return res;
     }
-    
-    void d(vector<string>&s,int n){
-        if(n==s.size()){
-            v.push_back(s);
+private:
+    void solveNQueens(std::vector<std::vector<std::string> > &res, std::vector<std::string> &nQueens, std::vector<int> &flag_col, std::vector<int> &flag_45, std::vector<int> &flag_135, int row, int &n) {
+        if (row == n) {
+            res.push_back(nQueens);
             return;
         }
-        for(int i=0;i<s.size();i++)
-            if(c(s,n,i)){
-                s[n][i]='Q';
-                d(s,n+1);
-                s[n][i]='.';
+        for (int col = 0; col != n; ++col)
+            if (flag_col[col] && flag_45[row + col] && flag_135[n - 1 + col - row]) {
+                flag_col[col] = flag_45[row + col] = flag_135[n - 1 + col - row] = 0;
+                nQueens[row][col] = 'Q';
+                solveNQueens(res, nQueens, flag_col, flag_45, flag_135, row + 1, n);
+                nQueens[row][col] = '.';
+                flag_col[col] = flag_45[row + col] = flag_135[n - 1 + col - row] = 1;
             }
     }
-    
-    vector<vector<string>> solveNQueens(int n) {
-        vector<string>s(n,string(n,'.'));
-        d(s,0);
-        return v;
-    }
 };
-
    
        
