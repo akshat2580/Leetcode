@@ -1,21 +1,21 @@
 class Solution {
 public:
-    vector<vector<int>>v;
-    void solve(vector<int>&t,vector<int>r,int i,int n){
-    if(i==n){sort(r.begin(),r.end());
-        v.push_back(r);
-        return ;}
-        r.push_back(t[i]);
-        solve(t,r,i+1,n);
-            r.pop_back();
-    solve(t,r,i+1,n);
-    }
-    
-    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        vector<int>r;
-        solve(nums,r,0,nums.size());
-        set<vector<int>>d(v.begin(),v.end());
-        vector<vector<int>>w(d.begin(),d.end());
-        return w;
-    }
+    vector<vector<int> > subsetsWithDup(vector<int> &S) {
+        vector<vector<int> > totalset = {{}};
+        sort(S.begin(),S.end());
+        for(int i=0; i<S.size();){
+            int count = 0; // num of elements are the same
+            while(count + i<S.size() && S[count+i]==S[i])  count++;
+            int previousN = totalset.size();
+            for(int k=0; k<previousN; k++){
+                vector<int> instance = totalset[k];
+                for(int j=0; j<count; j++){
+                    instance.push_back(S[i]);
+                    totalset.push_back(instance);
+                }
+            }
+            i += count;
+        }
+        return totalset;
+        }
 };
