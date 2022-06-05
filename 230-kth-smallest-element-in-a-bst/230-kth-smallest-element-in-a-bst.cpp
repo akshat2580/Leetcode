@@ -12,7 +12,7 @@
 class Solution {
 public:
     int kthSmallest(TreeNode* root, int k) {
-        set<int>s;
+        priority_queue<int> s;
                     if(root==NULL)return 0;                        
         queue<TreeNode*>q;
         q.push(root);
@@ -21,13 +21,12 @@ public:
             for(int i=0;i<q.size();i++){
                 auto n=q.front();
                 q.pop();
-                s.insert(n->val); 
+                s.push(n->val);
+                if(s.size()>k)s.pop();
                 if(n->left)q.push(n->left);
                 if(n->right)q.push(n->right);
             }
-        }int c;
-        for(auto i=s.begin();i!=s.end()&&k>0;i++,k--)
-            c=*i;
-         return c;                                   
+        }
+         return s.top();                                   
     }
 };
