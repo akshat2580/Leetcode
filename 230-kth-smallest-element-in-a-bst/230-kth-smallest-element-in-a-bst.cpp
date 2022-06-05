@@ -11,22 +11,17 @@
  */
 class Solution {
 public:
+    int ans=0;void sol(TreeNode*root,int& k){
+    if(k==0 || !root)return;
+     sol(root->left,k);
+    k--;
+    if(k==0)ans=root->val;
+   sol(root->right,k);
+                                          
+}
     int kthSmallest(TreeNode* root, int k) {
-        priority_queue<int> s;
-                    if(root==NULL)return 0;                        
-        queue<TreeNode*>q;
-        q.push(root);
-        while(q.size()){
-            
-            for(int i=0;i<q.size();i++){
-                auto n=q.front();
-                q.pop();
-                s.push(n->val);
-                if(s.size()>k)s.pop();
-                if(n->left)q.push(n->left);
-                if(n->right)q.push(n->right);
-            }
-        }
-         return s.top();                                   
+        sol(root,k);   
+        return ans;
+       
     }
 };
