@@ -8,20 +8,12 @@
  */
 class Solution {
 public:
-    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        if(headA==NULL||headB==NULL)return NULL;
-        auto k=headA,l=headB;
-        for(auto i=headA;i!=NULL;)
-        {
-           if(k==l)return k;
-            else if(l->next){
-                l=l->next;i=k;
-            }
-            else {
-                if(k->next)
-                k=k->next;
-              l=headB;i=i->next;   }
-        }  
-        return NULL;
+  ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+    ListNode *cur1 = headA, *cur2 = headB;
+    while(cur1 != cur2){
+        cur1 = cur1?cur1->next:headB;
+        cur2 = cur2?cur2->next:headA;
     }
+    return cur1;
+}
 };
