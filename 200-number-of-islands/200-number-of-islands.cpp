@@ -1,25 +1,28 @@
 class Solution {
 public:
-    void dfs(int i,int j,vector<vector<char>>&v){
-        if(i==-1||j==-1||i==v.size()||j==v[0].size()||v[i][j]=='0')
-            return;
-        
-        v[i][j]='0';
-        dfs(i,j+1,v);
-        dfs(i+1,j,v);
-        dfs(i-1,j,v);
-        dfs(i,j-1,v);
-    }
-    int numIslands(vector<vector<char>>& g) {
-        int n=g.size(),m=g[0].size(),a=0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(g[i][j]=='1')
-                {dfs(i,j,g);
-                    a++;
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size(), n = m ? grid[0].size() : 0, islands = 0, offsets[] = {0, 1, 0, -1, 0};
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    islands++;
+                    grid[i][j] = '0';
+                    queue<pair<int, int>> todo;
+                    todo.push({i, j});
+                    while (!todo.empty()) {
+                        pair<int, int> p = todo.front();
+                        todo.pop();
+                        for (int k = 0; k < 4; k++) {
+                            int r = p.first + offsets[k], c = p.second + offsets[k + 1];
+                            if (r >= 0 && r < m && c >= 0 && c < n && grid[r][c] == '1') {
+                                grid[r][c] = '0';
+                                todo.push({r, c});
+                            }
+                        }
+                    }
                 }
             }
         }
-        return a;
+        return islands;
     }
 };
