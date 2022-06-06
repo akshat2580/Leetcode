@@ -1,26 +1,18 @@
 class Solution {
 public:
-    void solve(int i,int j,vector<vector<int>>&v,int &a){
-        if(i==-1||j==-1||i>=v.size()||j>=v[0].size()||v[i][j]==0)
-            return;
-        a++;
-        v[i][j]=0;
-        solve(i,j+1,v,a);
-        solve(i+1,j,v,a);
-        solve(i-1,j,v,a);
-        solve(i,j-1,v,a);
-    }
     int maxAreaOfIsland(vector<vector<int>>& grid) {
-        int n=grid.size(),m=grid[0].size(),ans=0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j]){
-                int a=0;
-                solve(i,j,grid,a);
-                ans=max(ans,a);
-                }
-            }
-        }
+        int ans = 0;
+        n = grid.size(), m = grid[0].size();
+        for (int i = 0; i < n; i++) 
+            for (int j = 0; j < m; j++)
+                if (grid[i][j]) ans = max(ans, trav(i, j, grid));
         return ans;
+    }
+private:
+    int n, m;
+    int trav(int i, int j, vector<vector<int>>& grid) {
+        if (i < 0 || j < 0 || i >= n || j >= m || !grid[i][j]) return 0;
+        grid[i][j] = 0;
+        return 1 + trav(i-1, j, grid) + trav(i, j-1, grid) + trav(i+1, j, grid) + trav(i, j+1, grid);
     }
 };
