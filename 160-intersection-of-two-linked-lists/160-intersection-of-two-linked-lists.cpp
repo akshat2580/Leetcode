@@ -10,12 +10,18 @@ class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         if(headA==NULL||headB==NULL)return NULL;
-        
-        for(auto i=headA;i!=NULL;i=i->next)
+        auto k=headA,l=headB;
+        for(auto i=headA;i!=NULL;)
         {
-            for(auto j=headB;j!=NULL;j=j->next)
-                if(j==i)return j;
-        } 
+           if(k==l)return k;
+            else if(l->next){
+                l=l->next;i=k;
+            }
+            else {
+                if(k->next)
+                k=k->next;
+              l=headB;i=i->next;   }
+        }  
         return NULL;
     }
 };
