@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void dfs(vector<int>&a,vector<vector<int>>&v,int k,int n,int i){
+    void dfs(vector<int>&a,vector<vector<int>>&v,int& k,int n,int i){
 if(n==0&&k==a.size()){
     v.push_back(a);
     return ;
