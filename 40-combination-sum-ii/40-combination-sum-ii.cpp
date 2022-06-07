@@ -1,27 +1,30 @@
 class Solution {
 public:
-    vector<vector<int>>v;
-    void dfs(vector<int>&c,vector<int>a,int i,int t)
+    vector<vector<int> > combinationSum2(vector<int> &num, int target) 
     {
-        if(t<0)return;
-        if(t==0){
-            v.push_back(a);
+        vector<vector<int>> res;
+        sort(num.begin(),num.end());
+        vector<int> local;
+        findCombination(res, 0, target, local, num);
+        return res;
+    }
+    void findCombination(vector<vector<int>>& res, const int order, const int target, vector<int>& local, const vector<int>& num)
+    {
+        if(target==0)
+        {
+            res.push_back(local);
             return;
         }
-        set<int> used;
-        for(int j=i;j<c.size();j++){
-            if(used.count(c[j]))continue;
-            a.push_back(c[j]);
-            dfs(c,a,j+1,t-c[j]);
-            a.pop_back();
-            used.insert(c[j]);
+        else
+        {
+            for(int i = order;i<num.size();i++) // iterative component
+            {
+                if(num[i]>target) return;
+                if(i&&num[i]==num[i-1]&&i>order) continue; // check duplicate combination
+                local.push_back(num[i]),
+                findCombination(res,i+1,target-num[i],local,num); // recursive componenet
+                local.pop_back();
+            }
         }
-    
-    }
-    vector<vector<int>> combinationSum2(vector<int>& c, int t) {
-        sort(c.begin(),c.end());
-        vector<int>a;
-        dfs(c,a,0,t);
-        return v;
     }
 };
