@@ -11,19 +11,14 @@
 class Solution {
 public:
     ListNode* mergeNodes(ListNode* head) {
-        int s=0; ListNode* d = new ListNode(0);
-        ListNode* r=d;
-        head=head->next;
-        while(head!=NULL){
-            if(head->val==0){
-                 d->next = new ListNode(s);
-                d=d->next;
-                s=0;
-            
-            }
-            else s+=head->val;
-            head=head->next;
+    for (auto *p_z = head, *p = head->next; p != nullptr; p = p->next) {
+        if (p->val != 0)
+            p_z->val += p->val;
+        else {
+            p_z->next = p->next != nullptr ? p : nullptr;
+            p_z = p;
         }
-        return r->next;
     }
+    return head;
+}
 };
