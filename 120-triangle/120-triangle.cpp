@@ -1,20 +1,17 @@
 class Solution {
 public:
-   int minimumTotal(vector<vector<int>>& triangle) {
-		int n = triangle.size();
-		vector<int>next(n);
-		for(int i = n-1; i >= 0; i--) {
-			vector<int>curr(n);
-			for(int j = i; j >= 0; j--) {
-				if(i == n-1)
-					curr[j] = triangle[i][j];
-				else {
-					int up = triangle[i][j] + next[j];
-					int up_left = triangle[i][j] + next[j+1];
-					curr[j] = min(up, up_left);
-				}
-			}
-			next = curr;
-		}
-		return next[0];
-	}};
+
+    int  solve(int& n,int k,int l,vector<vector<int>>&t,int dp[201][201]){
+        if(k==n-1)return t[k][l];
+        if(dp[k][l]!=-1)return dp[k][l];
+         dp[k][l]=min(solve(n,k+1,l,t,dp),solve(n,k+1,l+1,t,dp))+t[k][l];
+        return dp[k][l];
+    }
+    int minimumTotal(vector<vector<int>>& t) {
+        int n=t.size(),k=0;
+                int dp[201][201];
+        for(auto& i:dp)for(auto& j:i)j=-1;
+        int c=solve(n,k,0,t,dp);
+        return c;
+    }
+};
