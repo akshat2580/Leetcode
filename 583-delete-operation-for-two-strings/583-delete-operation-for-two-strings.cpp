@@ -1,19 +1,34 @@
 class Solution {
 public:
-    int minDistance(string w1, string w2) {
-        // if(w1)
-        int n=w1.size(),m=w2.size();
-        int dp[w1.size()+1][w2.size()+1];
-        for(int i=0;i<=n;i++){
-            for(int j=0;j<=m;j++){
-                if(i==0||j==0)dp[i][j]=0;
-                else if(w1[i-1]==w2[j-1])
-                    dp[i][j]=1+dp[i-1][j-1];
-                else
-                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
-            }
+     int dp[501][501];
+    int LCS(string s1,string s2,int n,int m)
+    {
+        if(n==0 || m==0)
+        {
+            return 0;
         }
-        int c=dp[n][m];
-        return w1.size()-c+w2.size()-c;
+        if(dp[n][m]!=-1)
+        {
+            return dp[n][m];
+        }
+        if(s1[n-1]==s2[m-1])
+        {
+            dp[n][m]= 1+LCS(s1,s2,n-1,m-1);
+        }
+        else
+        {
+            dp[n][m]= max(LCS(s1,s2,n-1,m),LCS(s1,s2,n,m-1));
+        }
+        return dp[n][m];
+    }
+    int minDistance(string word1, string word2) 
+    {
+        memset(dp,-1,sizeof dp);
+        int n=word1.length();
+        int m=word2.length();
+        int lcs=LCS(word1,word2,n,m);
+        return (n-lcs)+(m-lcs);                    			  
     }
 };
+    
+    
