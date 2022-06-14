@@ -1,17 +1,17 @@
 class Solution {
 public:
 
-    int  solve(int& n,int k,int l,vector<vector<int>>&t,int dp[201][201]){
-        if(k==n-1)return t[k][l];
-        if(dp[k][l]!=-1)return dp[k][l];
-         dp[k][l]=min(solve(n,k+1,l,t,dp),solve(n,k+1,l+1,t,dp))+t[k][l];
-        return dp[k][l];
-    }
     int minimumTotal(vector<vector<int>>& t) {
         int n=t.size(),k=0;
                 int dp[201][201];
         for(auto& i:dp)for(auto& j:i)j=-1;
-        int c=solve(n,k,0,t,dp);
-        return c;
-    }
+        for(int i = 0; i < n; i++) 
+			dp[n-1][i] = t[n-1][i];
+		for(int i = n-2; i >= 0; i--) {
+			for(int j = i; j >= 0; j--) {
+				dp[i][j] = min(dp[i+1][j],dp[i+1][j+1])+t[i][j];
+			}
+		}
+		return dp[0][0];
+	}
 };
