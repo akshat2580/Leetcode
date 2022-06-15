@@ -9,7 +9,7 @@ public:
     int longestStrChain(vector<string>& s) {
         int n=s.size();int r=0;
         sort(s.begin(),s.end(),cmp);
-        map<string,int>dp;
+        unordered_map<string,int>dp;
       for (auto w : s) {
             for (int i = 0; i < w.size(); i++) {
                 string pre = w.substr(0, i) + w.substr(i + 1);
