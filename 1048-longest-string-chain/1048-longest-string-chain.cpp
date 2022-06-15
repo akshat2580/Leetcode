@@ -1,21 +1,30 @@
 class Solution {
 public:
-   static bool cmp(string& s1,string& s2){
-        if(s1.size()<s2.size())
-            return true;
-        else 
-            return false;
-    }
-    int longestStrChain(vector<string>& s) {
-        int n=s.size();int r=0;
-        sort(s.begin(),s.end(),cmp);
-        unordered_map<string,int>dp;
-      for (auto w : s) {
-            for (int i = 0; i < w.size(); i++) {
-                string pre = w.substr(0, i) + w.substr(i + 1);
-                dp[w] = max(dp[w], dp.find(pre) == dp.end() ? 1 : dp[pre] + 1);
+    bool pred(string& a,string& b){
+        if(a.size()!=b.size()+1)return 0;
+        int c=0;
+        for(int i=0,j=0 ; j<b.size() && c<=1 ; i++,j++){
+            if(a[i]!=b[j]){
+                j--;
+                c++;
             }
-            r = max(r, dp[w]);
-        }return r;
+        }
+        return c<=1;
+    }
+    
+    int longestStrChain(vector<string>& words) {
+        sort(words.begin(),words.end(),[](string& a,string& b){return a.size()<b.size();});
+        int n=words.size(),ans=0;
+        vector<int> dp(n,1);
+        for(int i=0 ; i<n ; i++){
+            for(int j=i-1 ; j>=0 ; j--){
+                if(words[j].size()+1<words[i].size())break;
+                if(pred(words[i],words[j])){
+                    dp[i]=max(dp[j]+1,dp[i]);
+                }
+            }
+            ans=max(ans,dp[i]);
+        }
+        return ans;
     }
 };
