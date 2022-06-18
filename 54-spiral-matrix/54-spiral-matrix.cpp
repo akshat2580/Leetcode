@@ -1,34 +1,43 @@
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        int m = matrix.size(), n = m ? matrix[0].size() : 0, u = 0, d = m - 1, l = 0, r = n - 1, p = 0;
-        vector<int> order(m * n);
-        while (u <= d && l <= r) {
-            for (int col = l; col <= r; col++) {
-                order[p++] = matrix[u][col];
+        int n=matrix.size();
+        int m=matrix[0].size();
+        int left=0,right=m-1,bottom=n-1,top=0;
+        int direction=1;
+        vector<int> v;
+        while(left<=right && top<=bottom)
+        {
+            if(direction==1)
+            {
+                for(int i=left;i<=right;i++) v.push_back(matrix[top][i]);
+                direction=2;
+                top++;
             }
-            if (++u > d) {
-                break;
+            
+            else if(direction==2)
+            {
+                for(int i=top;i<=bottom;i++) v.push_back(matrix[i][right]);
+                direction=3;
+                right--;
             }
-            for (int row = u; row <= d; row++) {
-                order[p++] = matrix[row][r];
+            
+            else if(direction==3)
+            {
+                for(int i=right;i>=left;i--) v.push_back(matrix[bottom][i]);
+                direction=4;
+                bottom--;
             }
-            if (--r < l) {
-                break;
-            }
-            for (int col = r; col >= l; col--) {
-                order[p++] = matrix[d][col];
-            }
-            if (--d < u) {
-                break;
-            }
-            for (int row = d; row >= u; row--) {
-                order[p++] = matrix[row][l];
-            }
-            if (l++ > r) {
-                break;
+            
+            else if(direction==4)
+            {
+                for(int i=bottom;i>=top;i--) v.push_back(matrix[i][left]);
+                direction=1;
+                left++;
             }
         }
-        return order;
+        return v;
+        
     }
+
 };
