@@ -1,43 +1,34 @@
 class Solution {
 public:
-    vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        int n=matrix.size();
-        int m=matrix[0].size();
-        int left=0,right=m-1,bottom=n-1,top=0;
-        int direction=1;
-        vector<int> v;
-        while(left<=right && top<=bottom)
-        {
-            if(direction==1)
-            {
-                for(int i=left;i<=right;i++) v.push_back(matrix[top][i]);
-                direction=2;
-                top++;
+    vector<int> spiralOrder(vector<vector<int>>& a) {
+        int m=a.size();
+        int n=a[0].size();
+        int r=n-1,l=0,t=0,b=m-1;
+        int d=1,c=-1;
+        vector<int>v(n*m);
+        while(t<=b && l<=r){
+            if(d==1){
+                for(int i=l;i<=r;i++)
+                    v[++c]=a[t][i];
+                    d++;t++;
+               
             }
-            
-            else if(direction==2)
-            {
-                for(int i=top;i<=bottom;i++) v.push_back(matrix[i][right]);
-                direction=3;
-                right--;
+            else if(d==2){
+                for(int i=t;i<=b;i++)
+                    v[++c]=a[i][r];
+                d++;r--;
             }
-            
-            else if(direction==3)
-            {
-                for(int i=right;i>=left;i--) v.push_back(matrix[bottom][i]);
-                direction=4;
-                bottom--;
+            else if(d==3){
+                for(int i=r;i>=l;i--)
+                    v[++c]=a[b][i];
+                d++;b--;
             }
-            
-            else if(direction==4)
-            {
-                for(int i=bottom;i>=top;i--) v.push_back(matrix[i][left]);
-                direction=1;
-                left++;
+            else if(d==4){
+                for(int i=b;i>=t;i--)
+                    v[++c]=a[i][l];
+                    l++;d=1;
             }
         }
         return v;
-        
     }
-
 };
