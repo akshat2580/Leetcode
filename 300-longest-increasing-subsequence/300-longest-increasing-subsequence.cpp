@@ -1,15 +1,22 @@
-class Solution { // 8 ms, faster than 91.61%
+class Solution {
 public:
-    int lengthOfLIS(vector<int>& nums) {
-        vector<int> sub;
-        for (int x : nums) {
-            if (sub.empty() || sub[sub.size() - 1] < x) {
-                sub.push_back(x);
-            } else {
-                auto it = lower_bound(sub.begin(), sub.end(), x); // Find the index of the smallest number >= x
-                *it = x; // Replace that number with x
+     int dp[2501];
+    int lengthOfLIS(vector<int>& s) {
+        int n=s.size(),ans=0;
+        memset(dp,-1,sizeof(dp));
+        for(int i=0;i<n;i++){
+            ans=max(ans,lis(i,s));
+        }
+        return ans;
+    }
+    int lis(int i,vector<int>&a){
+        int ans=1;
+        if(dp[i]!=-1)return dp[i];
+        for(int j=0;j<i;j++){
+            if(a[i]>a[j]){
+                ans=max(ans,lis(j,a)+1);
             }
         }
-        return sub.size();
+        return dp[i]=ans;
     }
 };
