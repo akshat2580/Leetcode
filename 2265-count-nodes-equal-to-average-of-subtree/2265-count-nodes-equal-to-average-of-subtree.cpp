@@ -11,18 +11,25 @@
  */
 class Solution {
 public:
-   int count=0;
-pair<int,int> valueSum(TreeNode* root){
-	if(root==NULL) return {0,0};
-	auto left=valueSum(root->left);
-	auto right=valueSum(root->right);
-	int sum=(left.first+right.first+root->val);
-	int n=(left.second+right.second+1);        
-	count+=((sum/n)==root->val);
-	return {sum,n};
-}
-int averageOfSubtree(TreeNode* root) {
-	auto p1=valueSum(root);
-	return count;
-}
+    int ans = 0;
+    int sum(TreeNode* root, int& cnt){
+        if(root==NULL) return 0;
+        cnt++;
+        int left = sum(root->left,cnt);
+        int right = sum(root->right,cnt);
+        return (root->val + left + right);
+    }
+    void solve(TreeNode* root){
+        if(root==NULL) return;
+        int cnt = 0;
+        int avg = (sum(root,cnt))/cnt;
+        if(avg==root->val) ans++;
+        solve(root->left);
+        solve(root->right);
+    }
+    int averageOfSubtree(TreeNode* root) {
+        ans = 0;
+        solve(root);
+        return ans;
+    }
 };
