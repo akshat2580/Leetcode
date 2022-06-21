@@ -1,3 +1,6 @@
-select name as Employee
+select name as Employee 
 from Employee e
-where salary > (select salary from Employee m where e.managerid = m.id)
+where exists 
+(select 1 from Employee m
+where e.managerid = m.id
+and e.salary > m.salary)
