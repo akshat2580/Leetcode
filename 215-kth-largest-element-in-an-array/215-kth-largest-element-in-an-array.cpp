@@ -1,19 +1,10 @@
 class Solution {
 public:
-    int findKthLargest(vector<int>& s, int k) {
-        int n=s.size(),c=0;
-        map<int,int>m;
-        for(auto i:s)m[i]++;
-        k=n-k+1;
-        for(auto i:m)
-        {
-           
-            if(k>0)
-            {c=i.first;
-            }else
-                break;
-             k-=i.second;
+    int findKthLargest(vector<int>& nums, int k) {
+        multiset<int, greater<int>> mset(nums.begin(), nums.end());
+        for (int i = 0; i < k - 1; i++) {
+            mset.erase(mset.begin());
         }
-        return c; 
+        return *mset.begin();
     }
 };
