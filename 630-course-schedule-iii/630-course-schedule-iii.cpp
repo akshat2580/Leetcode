@@ -1,24 +1,20 @@
-public class Solution {
-    public int scheduleCourse(int[][] courses) {
-        System.out.println(courses.length);
-        Arrays.sort(courses, (a, b) -> a[1] - b[1]);
-        int time = 0, count = 0;
-        for (int i = 0; i < courses.length; i++) {
-            if (time + courses[i][0] <= courses[i][1]) {
-                time += courses[i][0];
-                courses[count++] = courses[i];
-            } else {
-                int max_i = i;
-                for (int j = 0; j < count; j++) {
-                    if (courses[j][0] > courses[max_i][0])
-                        max_i = j;
-                }
-                if (courses[max_i][0] > courses[i][0]) {
-                    time += courses[i][0] - courses[max_i][0];
-                    courses[max_i] = courses[i];
-                }
+class Solution {
+public:
+    int scheduleCourse(vector<vector<int>>& c) {
+        if(c.size() <= 0) return 0;
+        sort(c.begin(), c.end(), [](vector<int>& a, vector<int>& b) {
+            return a[1] < b[1];
+        });
+        priority_queue<int> q;
+        int s=0;
+        for(auto i : c) {
+            s+=i[0];
+            q.push(i[0]);
+            if(s>i[1]) {
+                s-=q.top();
+                q.pop();
             }
         }
-        return count;
+        return q.size();
     }
-}
+};
