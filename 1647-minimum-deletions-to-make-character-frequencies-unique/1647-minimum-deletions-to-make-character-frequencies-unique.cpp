@@ -1,13 +1,32 @@
 class Solution {
 public:
     int minDeletions(string s) {
-    int c[26] = {}, r = 0;
-    unordered_set<int> a;
-    for (char i : s)c[i-'a']++;
-    for (int i = 0; i < 26; i++)
-        while(c[i] > 0 && !a.insert(c[i]).second)//here, second will give the bool value of the insert function, insert function has actually has 2 value stored if a elemnt is stored in bool it is written as true; hence if the is another a value comes then bool will get true,meaning that it already has a value.
-            
-        {r++;; c[i]--;}
-    return r;
-}
+        
+        vector<int> freq(26, 0);    
+        for(auto &c: s) {
+            freq[c - 'a']++;
+        }
+        
+        int n = s.length();
+        vector<int> cnt(n+1, 0);
+        for(auto f: freq) {
+            cnt[f]++;
+        }
+        
+        int j, ans = 0;
+        
+        for(int i=n; i>=1; i--) {
+            while(cnt[i] > 1) {
+                j = i-1;
+                while(j > 0 && cnt[j] != 0) {
+                    j--;
+                }
+                ans += i-j;
+                cnt[j]++;
+                cnt[i]--;
+            }
+        }
+        
+        return ans;
+    }
 };
