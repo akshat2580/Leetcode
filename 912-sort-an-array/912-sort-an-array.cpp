@@ -2,13 +2,12 @@ class Solution {
 public:
     vector<int> sortArray(vector<int>& nums) {
        vector<int>v;
-        map<int,int>m;
-        for(auto i:nums)m[i]++;
-        for(auto i:m)
-            while(i.second>0){
-            v.push_back(i.first);
-                i.second--;
-            }
+        priority_queue<int,vector<int>,greater<int>>pq;
+        for(auto i:nums)pq.push(i);
+        while(pq.size()>0){
+            v.push_back(pq.top());
+            pq.pop();
+        }
         return v;
     }
 };
