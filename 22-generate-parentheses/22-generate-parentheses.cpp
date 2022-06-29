@@ -1,26 +1,29 @@
 class Solution {
-public:
-    void solve(vector<string>&v,int open,int close,string st){
-        if(open==0&&close==0)
-        {v.push_back(st);
-            return;
-        }
-        if(open!=0)
-        {string s=st;
-         s.push_back('(');
-         solve(v,open-1,close,s);   
-        }
-        if(close>open)
-        {string s=st;
-         s.push_back(')');
-            solve(v,open,close-1,s);
+    public List<String> generateParenthesis(int n) {
+        List<String> combinations = new ArrayList();
+        generateAll(new char[2 * n], 0, combinations);
+        return combinations;
+    }
+
+    public void generateAll(char[] current, int pos, List<String> result) {
+        if (pos == current.length) {
+            if (valid(current))
+                result.add(new String(current));
+        } else {
+            current[pos] = '(';
+            generateAll(current, pos+1, result);
+            current[pos] = ')';
+            generateAll(current, pos+1, result);
         }
     }
-    vector<string> generateParenthesis(int n) {
-        int open=n,close=n;
-        vector<string>v;
-        string st="";
-        solve(v,open,close,st);
-        return v;
+
+    public boolean valid(char[] current) {
+        int balance = 0;
+        for (char c: current) {
+            if (c == '(') balance++;
+            else balance--;
+            if (balance < 0) return false;
+        }
+        return (balance == 0);
     }
-};
+}
