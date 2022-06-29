@@ -1,13 +1,19 @@
 class Solution {
 public:
-    vector<string> generateParenthesis(int n) {
-	vector<string> ans;
-	solve(0, 0, n, "", ans);
-	return ans;
-}
-void solve(int start, int close, int n, string s, vector<string>& ans) {
-	if(size(s) == 2*n) ans.push_back(move(s));  // use move to directly push the constructed string into vector instead of creating a copy
-	if(start < n) solve(start + 1, close, n, s + '(', ans);
-	if(close < start) solve(start, close + 1, n, s + ')', ans);
-}
+   vector<string> generateParenthesis(int n) {
+        vector<vector<string>> dp(n+1); // cache to store all generated strings
+        dp[0] = {""}; 
+        for(int i=1;i<=n;i++){
+            for(int j=0;j<i;j++){
+                vector<string> left = dp[j];
+                vector<string> right = dp[i-j-1];
+                for(int k=0;k<left.size();k++){
+                    for(int l=0;l<right.size();l++){
+                        dp[i].push_back("(" + left[k] + ")" + right[l]);
+                    }
+                }
+            }
+        }
+        return dp[n];
+    }
 };
