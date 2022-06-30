@@ -2,20 +2,14 @@ class Solution {
 public:
    void sortColors(vector<int>& nums) {
         
-        // initialize variables:
-        int low = 0, mid = 0, high = nums.size() - 1;
-        
-        // logic:
-        while(mid <= high)
-        {
-            switch(nums[mid])
-            {
-                case 0: swap(nums[low++], nums[mid++]); break;
-                
-                case 1: mid++; break;
-                
-                case 2: swap(nums[mid], nums[high--]); break;
-            }
-        }
+       int r=0,b=0,l=0;
+       for(auto i:nums)if(i==0)r++;
+       else if(i==2)b++;
+       else l++;
+       nums={};
+       while(r--)nums.push_back(0);
+     
+       while(l--)nums.push_back(1);
+         while(b--)nums.push_back(2);
     }
 };
