@@ -11,7 +11,7 @@ public:
             int x=min(b[i][0],t);
             ans+=x*b[i][1];
             t-=x;
-            if(!t)break;
+            if(t==0)break;
         }
         return ans;
     }
