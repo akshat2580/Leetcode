@@ -2,8 +2,9 @@ class Solution {
 public:
     int findFinalValue(vector<int>& nums, int o) {
        int n=nums.size();
-        unordered_set<int>m(nums.begin(),nums.end());
-        while(m.count(o))o*=2;
+       unordered_map<int,int>m;
+        for(auto i:nums)m[i]++;
+        while(m[o])o*=2;
         return o;
     }
 };
