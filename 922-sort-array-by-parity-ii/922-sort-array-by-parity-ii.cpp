@@ -1,11 +1,9 @@
 class Solution {
 public:
-  vector<int> sortArrayByParityII(vector<int>& A) {
-    for (int i = 0, j = 1; i < A.size(); i += 2, j += 2) {
-        while (i < A.size() && A[i] % 2 == 0) i += 2;
-        while (j < A.size() && A[j] % 2 == 1) j += 2;
-        if (i < A.size()) swap(A[i], A[j]);
-    }
-    return A;
+ vector<int> sortArrayByParityII(vector<int>& A) {
+  for (int i = 0, j = 0; i < A.size() && j < A.size(); ) swap(
+      *find_if(begin(A) + i, end(A), [&] (int v) { return (i++ % 2 == 0 && v % 2 != 0) || i == A.size(); }),
+      *find_if(begin(A) + j, end(A), [&] (int v) { return (j++ % 2 != 0 && v % 2 == 0) || j == A.size(); }));
+  return A;
 }
 };
