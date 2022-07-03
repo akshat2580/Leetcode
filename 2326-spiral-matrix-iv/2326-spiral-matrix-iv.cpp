@@ -9,18 +9,45 @@
  * };
  */
 class Solution {
-public:
-   vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
-    int i = 0, j = 0, cur_d = 0, d[5] = {0, 1, 0, -1, 0};
-    vector<vector<int>> res(m, vector<int>(n, -1));
-    for (; head != nullptr; head = head->next) {
-        res[i][j] = head->val;
-        int ni = i + d[cur_d], nj = j + d[cur_d + 1];
-        if (min(ni, nj) < 0 || ni >= m || nj >= n || res[ni][nj] != -1)
-            cur_d = (cur_d + 1) % 4;
-        i += d[cur_d];
-        j += d[cur_d + 1];
-    }
-    return res;
-}
-};
+	public:
+		vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
+			vector<vector<int>> mat(m,vector<int>(n,-1));
+			ListNode* curr=head;
+			int minr=0;
+			int minc=0;
+			int maxr=m-1;
+			int maxc=n-1;
+			int t=0;
+			while(curr!=NULL && t<=m*n){
+				for(int j=minc;j<=maxc && curr!=NULL && t<=m*n;j++){
+					int i=minr;
+					mat[i][j]=curr->val;
+					curr=curr->next;
+					t++;
+				}
+				minr++;
+				for(int i=minr;i<=maxr && curr!=NULL && t<=m*n;i++){
+					int j=maxc;
+					mat[i][j]=curr->val;
+					curr=curr->next;
+					t++;
+				}
+				maxc--;
+				for(int j=maxc;j>=minc && curr!=NULL && t<=m*n;j--){
+					int i=maxr;
+					mat[i][j]=curr->val;
+					curr=curr->next;
+					t++;
+				}
+				maxr--;
+				for(int i=maxr;i>=minr && curr!=NULL && t<=m*n;i--){
+					int j=minc;
+					mat[i][j]=curr->val;
+					curr=curr->next;
+					t++;
+				}
+				minc++;
+			}
+			return mat;
+		}
+	};
