@@ -1,25 +1,26 @@
 class Solution {
 public:
-    int candy(vector<int>& s) {
-      int n=s.size();
-	 if(n<=1)
-		 return n;
-	 vector<int> num(n,1);
-	 for (int i = 1; i < n; i++)
-	 {
-		 if(s[i]>s[i-1])
-			 num[i]=num[i-1]+1;
-	 }
-	 for (int i=n-1; i>0 ; i--)
-	 {
-		 if(s[i-1]>s[i])
-			 num[i-1]=max(num[i]+1,num[i-1]);
-	 }
-	 int c=0;
-	 for (int i = 0; i<n; i++)
-	 {
-		 c+=num[i];
-	
-	 }
-	 return c;}
+    int candy(vector<int>& ratings) {
+        
+            if (ratings.size() == 0) return 0;
+            int ret = 1;
+            int up = 0, down = 0, peak = 0;
+            for (int i = 1; i < ratings.size(); i++) {
+                if (ratings[i - 1] < ratings[i]) {
+                    peak = ++up;
+                    down = 0;
+                    ret += 1 + up;
+                } else if (ratings[i - 1] == ratings[i])  {
+                    peak = up = down = 0;
+                    ret += 1;
+                } else {
+                    up = 0;
+                    down++;
+                    ret += 1 + down + (peak >= down ? -1 : 0);
+                }
+            }
+
+            return ret;
+        
+    }
 };
