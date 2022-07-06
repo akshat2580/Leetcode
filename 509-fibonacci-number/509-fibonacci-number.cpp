@@ -1,6 +1,7 @@
 class Solution {
 public:
-    int fib(int n) {
-      return n==0?0:n==1?1:fib(n-1)+fib(n-2);
+    int fib(int N) {
+        double phi = (sqrt(5) + 1) / 2;     
+        return round(pow(phi, N) / sqrt(5));
     }
 };
