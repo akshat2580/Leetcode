@@ -1,30 +1,26 @@
 class Solution {
 public:
-    string decodeString(const string& s, int& i) {
-        string res;
-        
-        while (i < s.length() && s[i] != ']') {
-            if (!isdigit(s[i]))
-                res += s[i++];
-            else {
-                int n = 0;
-                while (i < s.length() && isdigit(s[i]))
-                    n = n * 10 + s[i++] - '0';
-                    
-                i++; // '['
-                string t = decodeString(s, i);
-                i++; // ']'
-                
-                while (n-- > 0)
-                    res += t;
+    int i=0;
+    
+    string decodeString(string& s) {
+        string ans="";
+        while(i<s.size() && s[i]!=']'){
+            if(s[i]<'0' || s[i]>'9'){
+                ans+=s[i++];
+            }
+            else{
+                int rep=0;
+                while(s[i]>='0' && s[i]<='9'){
+                    rep=rep*10+s[i++]-'0';
+                }
+                i++;
+                string cur=decodeString(s);
+                i++;
+                while(rep-->0){
+                    ans+=cur;
+                }
             }
         }
-        
-        return res;
-    }
-
-    string decodeString(string s) {
-        int i = 0;
-        return decodeString(s, i);
+        return ans;
     }
 };
