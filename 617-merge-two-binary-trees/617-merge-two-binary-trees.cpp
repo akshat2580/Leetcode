@@ -11,13 +11,14 @@
  */
 class Solution {
 public:
-    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
-       if(root1==nullptr)return root2;
-        if(root2==nullptr)return root1;
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+        if(!t1 && !t2) return nullptr;
+        int val1 = t1? t1->val:0;
+        int val2 = t2? t2->val:0;
         
-       root1->val+=root2->val;
-        root1->left=mergeTrees(root1->left,root2->left);
-        root1->right=mergeTrees(root1->right,root2->right);
-        return root1;
+        TreeNode* t = new TreeNode(val1+val2);
+        t->left = mergeTrees(t1?t1->left:nullptr,t2?t2->left:nullptr);
+        t->right = mergeTrees(t1?t1->right:nullptr,t2?t2->right:nullptr);
+        return t;
     }
 };
