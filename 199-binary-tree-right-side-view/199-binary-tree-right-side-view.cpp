@@ -11,17 +11,29 @@
  */
 class Solution {
 public:
-    void sol(vector<int>&v,TreeNode* root,int i){
-        
-    
-        if(root==nullptr) return ;
-        if(v.size()<i) v.push_back(root->val);
-        sol(v,root->right,i+1 );
-        sol(v,root->left,i+1);
-    }
     vector<int> rightSideView(TreeNode* root) {
-        vector<int>v;
-        sol(v,root,1);
-        return v;
+        if (!root) {
+            return {};
+        }
+        vector<int> view;
+        queue<TreeNode*> todo;
+        todo.push(root);
+        while (!todo.empty()) {
+            int n = todo.size();
+            for (int i = 0; i < n; i++) {
+                TreeNode* node = todo.front();
+                todo.pop();
+                if (i == n - 1) {
+                    view.push_back(node -> val);
+                }
+                if (node -> left) {
+                    todo.push(node -> left);
+                }
+                if (node -> right) {
+                    todo.push(node -> right);
+                }
+            }
+        }
+        return view;
     }
 };
