@@ -1,19 +1,15 @@
 class Solution {
 public:
-    vector<int> relativeSortArray(vector<int>& a1, vector<int>& a2) {
-      map<int,int>m;vector<int>v;
-        for(auto i:a1)m[i]++;
-        for(auto i:a2){
-            while(m[i]--){
-                v.push_back(i);
-            }m[i]=-1;
+    vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
+        map<int, int> m;
+        for (auto i : arr1) m[i]++;
+        int pos = 0;
+        for (auto j : arr2) {
+            while(m[j]-- > 0) arr1[pos++] = j;
         }
-        if(v.size()<a1.size()){
-            for(auto i:m){
-                if(i.second!=-1)
-                while(i.second--)v.push_back(i.first);
-            }
+        for (auto it : m) {
+            while(it.second-- > 0) arr1[pos++] = it.first;
         }
-        return v;
+        return arr1;
     }
 };
