@@ -21,8 +21,8 @@ public:
         while(q.size())
         {
             vector<int>ans;
-            int len=q.size();
-            while(len--)
+            int l=q.size();
+            while(l--)
             {
                 TreeNode* temp=q.front();
                 q.pop();
