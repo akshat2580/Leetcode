@@ -12,19 +12,21 @@
 class Solution {
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        int rootIdx = 0;
-        return build(preorder, inorder, rootIdx, 0, inorder.size()-1);
+        map<int,int> mp;
+        for(int i=0;i<preorder.size();i++){
+            mp[inorder[i]]=i;
+        }
+        TreeNode* root = construct(preorder,0,preorder.size()-1,inorder,0,inorder.size()-1,mp);
+        return root;
     }
-    
-    TreeNode* build(vector<int>& preorder, vector<int>& inorder, int& rootIdx, int left, int right) {
-        if (left > right) return NULL;
-        int pivot = left; 
-        while(inorder[pivot] != preorder[rootIdx]) pivot++;
+    TreeNode* construct(vector<int>&preorder, int preStart, int preEnd, vector<int> &inorder,int inStart, int inEnd, map<int,int> &mp){
+        if(preStart>preEnd || inStart>inEnd) return NULL;
+        TreeNode* root = new TreeNode(preorder[preStart]);
+        int inRoot = mp[root->val];
+        int numsLeft = inRoot-inStart;
         
-        rootIdx++;
-        TreeNode* newNode = new TreeNode(inorder[pivot]);
-        newNode->left = build(preorder, inorder, rootIdx, left, pivot-1);
-        newNode->right = build(preorder, inorder, rootIdx, pivot+1, right);
-        return newNode;
+        root->left = construct(preorder,preStart+1,preStart+numsLeft,inorder,inStart,inRoot-1,mp);
+        root->right = construct(preorder,preStart+numsLeft+1,preEnd,inorder,inRoot+1,inEnd,mp);
+        return root;
     }
 };
