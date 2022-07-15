@@ -1,6 +1,6 @@
 class Solution {
 public:  vector<vector<int>>v;
-    void s(vector<int>a,vector<int>&c,int t,int i){
+    void s(vector<int>&a,vector<int>&c,int t,int i){
         if(t<0)return;
         if(t==0)
         {v.push_back(a);
