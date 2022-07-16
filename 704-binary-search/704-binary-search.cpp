@@ -1,27 +1,13 @@
 class Solution {
 public:
-    int search(vector<int>& a, int t) {
-      
-        int s=a.size(),l=0,r=s-1;
-        int mid;
+    int search(vector<int>& s, int t) {
+        int l=0,r=s.size()-1;
         while(l<=r){
-            mid=(l+r)/2;
-            int n=a[mid];
-                   
-                   if(n==t)
-                       return mid;
-            
-           else if(n>t){
-                r=mid-1;
-                
-            }
-            
-                   else
-                       l=mid+1;
-            
-            
+           int m=l+(r-l)/2;
+            if(s[m]==t)return m;
+            else if(s[m]<t)l=m+1;
+            else r=m-1;
         }
-    
         return -1;
     }
 };
