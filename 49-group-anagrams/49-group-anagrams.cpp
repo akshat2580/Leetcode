@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& str) {
         int n=str.size();
-        map<string,vector<string>>m;
+        unordered_map<string,vector<string>>m;
         for(int i=0;i<n;i++){
             string g=str[i];
             sort(g.begin(),g.end());
