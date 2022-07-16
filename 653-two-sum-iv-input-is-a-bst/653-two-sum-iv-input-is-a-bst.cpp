@@ -11,23 +11,11 @@
  */
 class Solution {
 public:
-    
-    void sol(TreeNode* root,vector<int>& v){
-        if(root==nullptr)return;
-        v.push_back(root->val);
-        if(root->left)sol(root->left,v);
-        if(root->right)sol(root->right,v);
-    }
-    
+       unordered_set<int> s;
     bool findTarget(TreeNode* root, int k) {
-       unordered_map<int,int>m;
-        vector<int>v;
-        sol(root,v);
-        if(v.size()==1)return 0;
-         for(int i=0;i<v.size();i++)
-         { if(m.find(k-v[i])!=m.end())return true;
-         m[v[i]]++;
-         }
-return false;
+        if (!root) return false;
+        if (s.count(k - root->val)) return true;
+        s.insert(root->val);
+        return findTarget(root->left, k) || findTarget(root->right, k);
     }
 };
