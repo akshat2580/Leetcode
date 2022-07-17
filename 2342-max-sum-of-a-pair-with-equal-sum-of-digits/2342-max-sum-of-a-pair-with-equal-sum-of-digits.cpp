@@ -12,8 +12,7 @@ public:
         unordered_map<int,multiset<int,greater<int>>>m;
         for(auto i:nums)m[sol(i)].insert(i);
         int c=-1;
-        for(auto i:m){for(auto j:i.second)cout<<j;
-                      cout<<endl;
+        for(auto i:m){
             if(i.second.size()>=2){
                 int k=2,ans=0;
                 for(auto j:i.second){
