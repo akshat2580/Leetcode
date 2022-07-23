@@ -1,12 +1,7 @@
 class Solution {
 public:
-    int mostWordsFound(vector<string>& s) {
-        int c=0;
-        for(auto i:s){
-            int v=1;
-            for(auto j:i)if(j==' ')v++;
-            c=max(c,v);
-        }
-        return c;
-    }
+   int mostWordsFound(vector<string>& s) {
+    return 1 + accumulate(begin(s), end(s), 0, [](int res, const auto &s) {
+        return max(res, (int)count(begin(s), end(s), ' ')); });
+}
 };
