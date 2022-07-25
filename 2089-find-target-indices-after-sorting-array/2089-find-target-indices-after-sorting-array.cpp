@@ -1,14 +1,13 @@
 class Solution {
 public:
-    vector<int> targetIndices(vector<int>& s, int t) {
-        sort(s.begin(),s.end());
-        vector<int>v;
-        for(int i=0;i<s.size();i++){
-            if(s[i]==t){
-                v.push_back(i);
-                
-            }
+     vector<int> targetIndices(vector<int>& A, int target) {
+        int cnt = 0, rank = 0; 
+        for (int n : A) {
+            cnt += n == target;
+            rank += n < target;
         }
-        return v;
+        vector<int> ans;
+        while (cnt--) ans.push_back(rank++);
+        return ans;
     }
 };
