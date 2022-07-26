@@ -9,7 +9,6 @@
  */
 class Solution {
 public:
-    TreeNode* ans;
     
 TreeNode* solve(TreeNode* root,TreeNode* p,TreeNode* q){
         if(!root)return root;
@@ -22,7 +21,6 @@ TreeNode* solve(TreeNode* root,TreeNode* p,TreeNode* q){
     }
     
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        ans=solve(root,p,q);
-        return ans;
+        return solve(root,p,q);
     }
 };
