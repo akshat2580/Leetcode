@@ -11,17 +11,18 @@ class Solution {
 public:
     TreeNode* ans;
     
-    bool solve(TreeNode* root,TreeNode* p,TreeNode* q){
-        if(!root)return false;
+TreeNode* solve(TreeNode* root,TreeNode* p,TreeNode* q){
+        if(!root)return root;
+    if((root->val==p->val)||(root->val==q->val))return root;
         auto left=solve(root->left,p,q);
         auto right=solve(root->right,p,q);
-        if(left && right)ans=root;
-        if((left||right) && (root->val==p->val || root->val==q->val))ans=root;
-        return left||right||(root->val==p->val || root->val==q->val);
+        if(!left)return right;
+        if(!right) return left;
+        return root;
     }
     
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        solve(root,p,q);
+        ans=solve(root,p,q);
         return ans;
     }
 };
