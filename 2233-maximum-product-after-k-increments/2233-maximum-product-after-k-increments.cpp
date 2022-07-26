@@ -10,7 +10,8 @@ public:
         long long c=1;
         while(q.size()){c=c%(1000000000+7);
             c*=q.top();q.pop();
-        }c=c%(1000000000+7);
+        }
+        c=c%(1000000000+7);
         return (int)c;
     }
 };
