@@ -1,19 +1,18 @@
 class Solution {
 public:
-    int furthestBuilding(vector<int>& h, int b, int l) {
-        multiset<int> pq;
-        for (int i = 0; i < h.size() - 1; i++) {
-            int j= h[i + 1] - h[i];
-            if (j>0)
-                pq.insert(j);
-            if (pq.size()>l) {
-                b-=*pq.begin();
-                pq.erase(pq.begin());
+    int furthestBuilding(vector<int>& A, int bricks, int ladders) {
+        priority_queue<int> pq;
+        for (int i = 0; i < A.size() - 1; i++) {
+            int d = A[i + 1] - A[i];
+            if (d > 0)
+                pq.push(-d);
+            if (pq.size() > ladders) {
+                bricks += pq.top();
+                pq.pop();
             }
-            if (b<0)
+            if (bricks < 0)
                 return i;
-            
         }
-        return h.size() - 1;
+        return A.size() - 1;
     }
 };
