@@ -9,10 +9,19 @@
  */
 class Solution {
 public:
-  TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    if (!root || root == p || root == q) return root;
-    TreeNode* left = lowestCommonAncestor(root->left, p, q);
-    TreeNode* right = lowestCommonAncestor(root->right, p, q);
-    return !left ? right : !right ? left : root;
-}
+    TreeNode* ans;
+    
+    bool solve(TreeNode* root,TreeNode* p,TreeNode* q){
+        if(!root)return false;
+        auto left=solve(root->left,p,q);
+        auto right=solve(root->right,p,q);
+        if(left && right)ans=root;
+        if((left||right) && (root->val==p->val || root->val==q->val))ans=root;
+        return left||right||(root->val==p->val || root->val==q->val);
+    }
+    
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        solve(root,p,q);
+        return ans;
+    }
 };
