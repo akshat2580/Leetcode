@@ -1,12 +1,12 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-      if(s.size()!=t.size())return false;
-        unordered_map<char,int>m;
+        map<char,int>m;
+        if(s.size()!=t.size())return 0;
         for(auto i:s)m[i]++;
-        for(auto i:t)
-            if(m[i]==0)return false;
-        else m[i]--;
-        return true;
+        for(auto i:t){
+            if(!m[i]--)return 0;
+        }
+        return 1;
     }
 };
